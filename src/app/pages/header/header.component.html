@@ -1,0 +1,38 @@
+<div class="header">
+    <div class="logo">Logo</div>
+    <div class="user">
+        <div class="user-name" *ngIf="loggedHospitalObj.hospitalId>0">{{loggedHospitalObj.hospitalName}}</div>
+        <div class="user-image" *ngIf="loggedHospitalObj.hospitalId>0" (click)="onLogout()">Logout</div>
+        <div class="user-image" *ngIf="loggedHospitalObj.hospitalId==0" (click)="showLogin()">Login</div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="loginModal">
+    <div class="modal-dialog d-flex justify-content-center">
+        <div class="modal-content w-400">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Sign in</h5>
+                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn-close"
+                    data-mdb-dismiss="modal" aria-label="Close" (click)="closeLogin()"></button>
+            </div>
+            <div class="modal-body p-4">
+                <!-- user name input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="text" id="email1" class="form-control" [(ngModel)]="user.userName" />
+                    <label class="form-label" for="email1">User Name</label>
+                </div>
+
+                <!-- password input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="password" id="password1" class="form-control" [(ngModel)]="user.password" />
+                    <label class="form-label" for="password1">Password</label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block"
+                    (click)="onLogin()">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
