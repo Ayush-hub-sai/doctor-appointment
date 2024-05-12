@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Login } from '../../model/login/login';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HospitalService } from '../../services/hospital/hospital.service';
 
 @Component({
   selector: 'app-header',
@@ -34,19 +35,24 @@ export class HeaderComponent implements OnInit {
     userName: '',
     password: ''
   };
+  loginData = localStorage.getItem("hospitalLogin");
 
   constructor(private login_service: LoginService,
-    private toastr: ToastrService, private router: Router) {
+    private toastr: ToastrService,
+    private router: Router,
+    private hospital_service: HospitalService) {
   }
 
   ngOnInit(): void {
-    const loginData = localStorage.getItem("hospitalLogin");
-    if (loginData) {
-      this.loggedHospitalObj = JSON.parse(loginData);
-    } else {
-      this.login_service.hospitalObservable$.subscribe((response: Hospital) => {
-        this.loggedHospitalObj = response;
-      })
+    this.login_service.hospitalObservable$.subscribe((response: Hospital) => {
+      this.loggedHospitalObj = response;
+    })
+    this.convertLocalDataToParse();
+  }
+
+  convertLocalDataToParse() {
+    if (this.loginData) {
+      this.loggedHospitalObj = JSON.parse(this.loginData);
     }
   }
 
@@ -118,4 +124,42 @@ export class HeaderComponent implements OnInit {
     this.login_service.storeLoginData(this.clearHospitalForm())
   }
 
+  OpenUpdateHopitalForm() {
+    const model = document.getElementById("updateHospitalForm");
+    if (model != null) {
+      model.style.display = "block";
+    }
+  }
+
+  closeUpdateHopitalForm() {
+    const model = document.getElementById("updateHospitalForm");
+    if (model != null) {
+      model.style.display = "none";
+    }
+    this.clearHospitalForm();
+    this.convertLocalDataToParse()
+  }
+
+
+  updateHospital() {
+    //api is not working for update
+    this.hospital_service.updateHospital(this.loggedHospitalObj).subscribe({
+      next: (response: ApiResponse) => {
+        if (response.result) {
+          this.toastr.success(response.message);
+          this.loggedHospitalObj = response.data;
+          this.closeUpdateHopitalForm();
+          this.convertLocalDataToParse()
+
+        }
+        else {
+          this.toastr.error(response.message);
+        }
+      },
+      error: (error: any) => {
+        this.toastr.error(error.message);
+        this.clearHospitalForm();
+      },
+    });
+  }
 }

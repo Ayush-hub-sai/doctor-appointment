@@ -1,13 +1,14 @@
 <div class="header">
     <div class="logo">Logo</div>
     <div class="user">
-        <div class="user-name" *ngIf="loggedHospitalObj.hospitalId>0">{{loggedHospitalObj.hospitalName}}</div>
+        <div class="user-name" *ngIf="loggedHospitalObj.hospitalId>0" (click)="OpenUpdateHopitalForm()">
+            {{loggedHospitalObj.hospitalName}}</div>
         <div class="user-image" *ngIf="loggedHospitalObj.hospitalId>0" (click)="onLogout()">Logout</div>
         <div class="user-image" *ngIf="loggedHospitalObj.hospitalId==0" (click)="showLogin()">Login</div>
     </div>
 </div>
 
-<!-- Modal -->
+<!--login Modal -->
 <div class="modal" id="loginModal">
     <div class="modal-dialog d-flex justify-content-center">
         <div class="modal-content w-400">
@@ -32,6 +33,87 @@
                 <!-- Submit button -->
                 <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block"
                     (click)="onLogin()">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- update hospital -->
+<div class="modal" id="updateHospitalForm">
+    <div class="modal-dialog d-flex justify-content-center">
+        <div class="modal-content w-400">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Update Hospital</h5>
+                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn-close"
+                    data-mdb-dismiss="modal" aria-label="Close" (click)="closeUpdateHopitalForm()"></button>
+            </div>
+            <div class="modal-body p-4">
+                <!-- hospital name input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="text" id="hospitalName" class="form-control"
+                        [(ngModel)]="loggedHospitalObj.hospitalName" />
+                    <label class="form-label" for="hospitalName">Hospital Name</label>
+                </div>
+
+                <!-- hospital address input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="text" id="hospitalAddress" class="form-control"
+                        [(ngModel)]="loggedHospitalObj.hospitalAddress" />
+                    <label class="form-label" for="hospitalAddress">Hospital Address</label>
+                </div>
+
+                <!-- hospital city input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="text" id="hospitalCity" class="form-control"
+                        [(ngModel)]="loggedHospitalObj.hospitalCity" />
+                    <label class="form-label" for="hospitalCity">Hospital City</label>
+                </div>
+
+                <!-- hospital contact number input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="tel" id="hospitalContactNo" class="form-control"
+                        [(ngModel)]="loggedHospitalObj.hospitalContactNo" />
+                    <label class="form-label" for="hospitalContactNo">Hospital Contact Number</label>
+                </div>
+
+                <!-- hospital owner name input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="text" id="hospitalOwnerName" class="form-control"
+                        [(ngModel)]="loggedHospitalObj.hospitalOwnerName" />
+                    <label class="form-label" for="hospitalOwnerName">Hospital Owner Name</label>
+                </div>
+
+                <!-- hospital owner contact number input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="tel" id="hospitalOwnerContactNo" class="form-control"
+                        [(ngModel)]="loggedHospitalObj.hospitalOwnerContactNo" />
+                    <label class="form-label" for="hospitalOwnerContactNo">Hospital Owner Contact Number</label>
+                </div>
+
+                <!-- hospital email input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="email" id="hospitalEmailId" class="form-control"
+                        [(ngModel)]="loggedHospitalObj.hospitalEmailId" />
+                    <label class="form-label" for="hospitalEmailId">Hospital Email</label>
+                </div>
+
+                <!-- hospital username input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="text" id="userName" class="form-control" [(ngModel)]="loggedHospitalObj.userName" />
+                    <label class="form-label" for="userName">Username</label>
+                </div>
+
+                <!-- hospital password input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="password" id="password" class="form-control"
+                        [(ngModel)]="loggedHospitalObj.password" />
+                    <label class="form-label" for="password">Password</label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block"
+                    (click)="updateHospital()">Update Hospital</button>
             </div>
         </div>
     </div>

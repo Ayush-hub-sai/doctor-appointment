@@ -16,4 +16,9 @@ export class HospitalService {
   registerHospital(hospital: Hospital): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(environment.apiUrl + ConstantApi.API_END_POINT.ADD_NEW_HOSPITAL, hospital);
   }
+
+  updateHospital(hospital: Hospital): Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(environment.apiUrl + ConstantApi.API_END_POINT.UPDATE_HOSPITAL, hospital);
+  }
+
 }
