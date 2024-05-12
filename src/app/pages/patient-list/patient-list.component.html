@@ -1,1 +1,121 @@
-<p>patient-list works!</p>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="heading-section">Patient List</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-sm mb-4 button_design" (click)="openPatientForm()">Add
+                        patient</button>
+                </div>
+                <div class="table-wrap">
+                    <table class="table">
+                        <thead class="thead-primary">
+                            <tr>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Mobile No</th>
+                                <th>City</th>
+                                <th>Gender</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="alert" role="alert" *ngFor="let patient of patientList">
+                                <td>
+                                    {{patient.name}}
+                                </td>
+                                <td>
+                                    {{patient.age}}
+                                </td>
+                                <td>
+                                    {{patient.mobileNo}}
+                                </td>
+                                <td>
+                                    {{patient.city}}
+                                </td>
+                                <td>
+                                    {{patient.gender}}
+                                </td>
+                                <td class="text-center">
+                                    <span>
+                                        <a (click)="editPatient(patient)"><img class="list-action-image cursor_pointer"
+                                                src="assets\Image\edit_icon.svg" />
+                                        </a>
+                                        <a (click)="deletePatien(patient)"><img class="list-action-image cursor_pointer"
+                                                src="assets\Image\delete_icon.svg" />
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- add modal -->
+<div class="modal" id="patientForm">
+    <div class="modal-dialog d-flex justify-content-center">
+        <div class="modal-content w-400">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1" *ngIf="patient.patientId==0">Add Patient</h5>
+                <h5 class="modal-title" id="exampleModalLabel1" *ngIf="patient.patientId!=0">Update Patient</h5>
+
+                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn-close"
+                    data-mdb-dismiss="modal" aria-label="Close" (click)="closePatientForm()"></button>
+            </div>
+            <div class="modal-body p-4">
+                <!-- name input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="text" id="name" class="form-control" [(ngModel)]="patient.name" />
+                    <label class="form-label" for="name">Name</label>
+                </div>
+
+                <!-- mobile number input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="tel" id="mobileNo" class="form-control" [(ngModel)]="patient.mobileNo" />
+                    <label class="form-label" for="mobileNo">Mobile Number</label>
+                </div>
+
+                <!-- city input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="text" id="city" class="form-control" [(ngModel)]="patient.city" />
+                    <label class="form-label" for="city">City</label>
+                </div>
+
+                <!-- age input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="number" id="age" class="form-control" [(ngModel)]="patient.age" />
+                    <label class="form-label" for="age">Age</label>
+                </div>
+
+                <!-- gender input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <select id="gender" class="form-select" [(ngModel)]="patient.gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <label class="form-label" for="gender">Gender</label>
+                </div>
+
+
+                <!-- Submit button -->
+                <button type="submit" *ngIf="patient.patientId==0"
+                 data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block"
+                    (click)="onPatientBooking()">Book Patient</button>
+
+                <button type="submit" *ngIf="patient.patientId!=0" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block"
+                    (click)="updatePatient()">Update Patient</button>
+            </div>
+        </div>
+    </div>
+</div>
