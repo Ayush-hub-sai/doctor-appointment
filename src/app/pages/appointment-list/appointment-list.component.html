@@ -1,1 +1,144 @@
-<p>appointment-list works!</p>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="heading-section">Appointment List</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-sm mb-4 button_design" (click)="openAppointmentForm()">Add
+                        Appointment</button>
+                </div>
+                <div class="table-wrap">
+                    <table class="table">
+                        <thead class="thead-primary">
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Mobile No</th>
+                                <th>City</th>
+                                <th>Appointment Date</th>
+                                <th>Appointment Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="alert" role="alert" *ngFor="let appointment of appointmentList">
+                                <td>
+                                    <label class="checkbox-wrap checkbox-primary">
+                                        <input type="checkbox" checked>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    {{appointment.name}}
+                                </td>
+                                <td>
+                                    {{appointment.age}}
+                                </td>
+                                <td>
+                                    {{appointment.mobileNo}}
+                                </td>
+                                <td>
+                                    {{appointment.city}}
+                                </td>
+                                <td>
+                                    {{ appointment.appointmentDate | date: 'dd/MM/yyyy' }}
+                                </td>
+                                <td>
+                                    {{appointment.appointmentTime}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- add modal -->
+<div class="modal" id="appointmentForm">
+    <div class="modal-dialog d-flex justify-content-center">
+        <div class="modal-content w-400">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Book Appointment</h5>
+                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn-close"
+                    data-mdb-dismiss="modal" aria-label="Close" (click)="closeAppointmentForm()"></button>
+            </div>
+            <div class="modal-body p-4">
+                <!-- name input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="text" id="name" class="form-control" [(ngModel)]="appointment.name" />
+                    <label class="form-label" for="name">Name</label>
+                </div>
+
+                <!-- mobile number input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="tel" id="mobileNo" class="form-control" [(ngModel)]="appointment.mobileNo" />
+                    <label class="form-label" for="mobileNo">Mobile Number</label>
+                </div>
+
+                <!-- city input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="text" id="city" class="form-control" [(ngModel)]="appointment.city" />
+                    <label class="form-label" for="city">City</label>
+                </div>
+
+                <!-- age input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="number" id="age" class="form-control" [(ngModel)]="appointment.age" />
+                    <label class="form-label" for="age">Age</label>
+                </div>
+
+                <!-- gender input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <select id="gender" class="form-select" [(ngModel)]="appointment.gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <label class="form-label" for="gender">Gender</label>
+                </div>
+
+                <!-- appointment date input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="date" id="appointmentDate" class="form-control"
+                        [(ngModel)]="appointment.appointmentDate" />
+                    <label class="form-label" for="appointmentDate">Appointment Date</label>
+                </div>
+
+                <!-- appointment time input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <input type="time" id="appointmentTime" class="form-control"
+                        [(ngModel)]="appointment.appointmentTime" />
+                    <label class="form-label" for="appointmentTime">Appointment Time</label>
+                </div>
+
+                <!-- isFirstVisit input -->
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" id="isFirstVisit"
+                        [(ngModel)]="appointment.isFirstVisit" />
+                    <label class="form-check-label" for="isFirstVisit">First Visit?</label>
+                </div>
+
+                <!-- narration input -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                    <textarea id="narration" class="form-control" [(ngModel)]="appointment.naration"></textarea>
+                    <label class="form-label" for="narration">Narration</label>
+                </div>
+
+                <!-- hospitalId input (hidden) -->
+                <input type="hidden" id="hospitalId" [(ngModel)]="appointment.hospitalId" />
+
+                <!-- Submit button -->
+                <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block"
+                    (click)="onAppointmentBooking()">Book Appointment</button>
+            </div>
+        </div>
+    </div>
+</div>
