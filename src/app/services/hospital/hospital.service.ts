@@ -21,4 +21,8 @@ export class HospitalService {
     return this.http.put<ApiResponse>(environment.apiUrl + ConstantApi.API_END_POINT.UPDATE_HOSPITAL, hospital);
   }
 
+  getAllHospital(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(environment.apiUrl + ConstantApi.API_END_POINT.GET_ALL_HOSPITALS);
+  }
+
 }

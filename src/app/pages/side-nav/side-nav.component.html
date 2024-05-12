@@ -2,19 +2,22 @@
     <div class="nav-item" routerLink="dashboard">
         <span>Dashboard</span>
     </div>
-    <div class="nav-item" routerLink="appointment-list">
+    <div class="nav-item" routerLink="appointment-list" *ngIf="loggedHospitalObj.userName!='superadmin'">
         <span>Appointment</span>
     </div>
-    <div class="nav-item" routerLink="hospital">
+    <!-- <div class="nav-item" routerLink="hospital">
         <span>Hospital</span>
-    </div>
-    <div class="nav-item" routerLink="patient">
+    </div> -->
+    <div class="nav-item" routerLink="patient" *ngIf="loggedHospitalObj.userName!='superadmin'">
         <span>Patient</span>
     </div>
-    <div class="nav-item" routerLink="hospital-list">
+    <div class="nav-item" routerLink="hospital-list" *ngIf="loggedHospitalObj.userName=='superadmin'">
         <span>All Hospital </span>
     </div>
-    <div class="nav-item" routerLink="patient">
+    <div class="nav-item" routerLink="patient" *ngIf="loggedHospitalObj.userName=='superadmin'">
         <span>All Patient</span>
+    </div>
+    <div class="nav-item" routerLink="appointment-list" *ngIf="loggedHospitalObj.userName=='superadmin'">
+        <span>All Appointment</span>
     </div>
 </div>

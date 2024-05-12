@@ -28,6 +28,8 @@ export class AppointmentListComponent implements OnInit {
     naration: "",
     hospitalId: 0
   }
+  loggedInObj: any;
+
 
   constructor(
     private appointment_service: AppointmentService,
@@ -38,12 +40,36 @@ export class AppointmentListComponent implements OnInit {
     const loginData = localStorage.getItem("hospitalLogin");
     if (loginData) {
       this.loggedInHospitalId = JSON.parse(loginData).hospitalId;
+      this.loggedInObj = JSON.parse(loginData)
+
     }
-    this.loadAllAppointmentByHospital();
+
+    if (this.loggedInObj.userName != 'superadmin') {
+      this.loadAllAppointmentByHospital();
+
+    } else {
+      this.loadAllAppointment();
+    }
   }
 
   loadAllAppointmentByHospital() {
     this.appointment_service.getAppointmentByHosId(this.loggedInHospitalId).subscribe({
+      next: (response: ApiResponse) => {
+        if (response.result) {
+          this.appointmentList = response.data;
+        }
+        else {
+          this.toastr.error(response.message);
+        }
+      },
+      error: (error: any) => {
+        this.toastr.error(error.message);
+      },
+    });
+  }
+
+  loadAllAppointment() {
+    this.appointment_service.getAllAppointment().subscribe({
       next: (response: ApiResponse) => {
         if (response.result) {
           this.appointmentList = response.data;

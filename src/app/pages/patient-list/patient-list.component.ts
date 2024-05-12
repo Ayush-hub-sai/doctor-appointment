@@ -5,6 +5,7 @@ import { ApiResponse } from '../../model/apiresponse/api-response';
 import { Patient } from '../../model/patient/patient';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Hospital } from '../../model/hospital/hospital';
 
 @Component({
   selector: 'app-patient-list',
@@ -25,6 +26,7 @@ export class PatientListComponent implements OnInit {
     gender: "",
     hospitalId: 0,
   }
+  loggedInObj: any;
 
   constructor(
     private toastr: ToastrService,
@@ -35,12 +37,34 @@ export class PatientListComponent implements OnInit {
     const loginData = localStorage.getItem("hospitalLogin");
     if (loginData) {
       this.loggedInHospitalId = JSON.parse(loginData).hospitalId;
+      this.loggedInObj = JSON.parse(loginData)
     }
-    this.loadPatientListByHospitalId();
+    if (this.loggedInObj.userName != 'superadmin') {
+      this.loadPatientListByHospitalId();
+    } else {
+      this.loadAllPatient();
+    }
+
   }
 
   loadPatientListByHospitalId() {
     this.patient_service.getAllPatientByHosId(this.loggedInHospitalId).subscribe({
+      next: (response: ApiResponse) => {
+        if (response.result) {
+          this.patientList = response.data;
+        }
+        else {
+          this.toastr.error(response.message);
+        }
+      },
+      error: (error: any) => {
+        this.toastr.error(error.message);
+      },
+    });
+  }
+
+  loadAllPatient() {
+    this.patient_service.getAllPatient().subscribe({
       next: (response: ApiResponse) => {
         if (response.result) {
           this.patientList = response.data;

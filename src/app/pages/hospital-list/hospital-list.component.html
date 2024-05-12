@@ -1,1 +1,54 @@
-<p>hospital-list works!</p>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="heading-section">Hospital List</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-wrap">
+                    <table class="table">
+                        <thead class="thead-primary">
+                            <tr>
+                                <th>Hospital Name</th>
+                                <th>Contact No</th>
+                                <th>Owner Name</th>
+                                <th>Owner Contact No</th>
+                                <th>Hospital Email</th>
+                                <th>City</th>
+                                <th>Full Address</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="alert" role="alert" *ngFor="let hospital of hospitalList">
+                                <td>
+                                    {{hospital.hospitalName}}
+                                </td>
+                                <td>
+                                    {{hospital.hospitalContactNo}}
+                                </td>
+                                <td>
+                                    {{hospital.hospitalOwnerName}}
+                                </td>
+                                <td>
+                                    {{hospital.hospitalOwnerContactNo}}
+                                </td>
+                                <td>
+                                    {{hospital.hospitalEmailId}}
+                                </td>
+                                <td>
+                                    {{hospital.hospitalCity}}
+                                </td>
+                                <td>
+                                    {{hospital.hospitalAddress}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
